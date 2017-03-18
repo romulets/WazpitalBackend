@@ -1,2 +1,2 @@
 # WazpitalBackend
-Server of [Wazpital App] (https://github.com/romulets/Wazpital)
+Server of [Wazpital Android App](https://github.com/romulets/Wazpital)
