@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema wazpital
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema wazpital
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `wazpital` DEFAULT CHARACTER SET utf8 ;
+USE `wazpital` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Hospital`
+-- Table `wazpital`.`Hospital`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Hospital` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Hospital` (
   `codHospital` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`codHospital`))
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Country`
+-- Table `wazpital`.`Country`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Country` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Country` (
   `codCountry` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`codCountry`))
@@ -38,9 +38,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`State`
+-- Table `wazpital`.`State`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`State` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`State` (
   `codState` INT NOT NULL,
   `codCountry` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
@@ -48,16 +48,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`State` (
   INDEX `fk_State_Country1_idx` (`codCountry` ASC),
   CONSTRAINT `fk_State_Country1`
     FOREIGN KEY (`codCountry`)
-    REFERENCES `mydb`.`Country` (`codCountry`)
+    REFERENCES `wazpital`.`Country` (`codCountry`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`City`
+-- Table `wazpital`.`City`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`City` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`City` (
   `codCity` INT NOT NULL,
   `codCountry` INT NOT NULL,
   `codState` INT NOT NULL,
@@ -66,16 +66,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`City` (
   INDEX `fk_City_State1_idx` (`codCountry` ASC, `codState` ASC),
   CONSTRAINT `fk_City_State1`
     FOREIGN KEY (`codCountry` , `codState`)
-    REFERENCES `mydb`.`State` (`codCountry` , `codState`)
+    REFERENCES `wazpital`.`State` (`codCountry` , `codState`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Address`
+-- Table `wazpital`.`Address`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Address` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Address` (
   `codHospital` INT NOT NULL,
   `number` INT NOT NULL,
   `street` VARCHAR(255) NOT NULL,
@@ -90,21 +90,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Address` (
   INDEX `fk_Address_City1_idx` (`codCity` ASC, `codCountry` ASC, `codState` ASC),
   CONSTRAINT `fk_Address_Hospital`
     FOREIGN KEY (`codHospital`)
-    REFERENCES `mydb`.`Hospital` (`codHospital`)
+    REFERENCES `wazpital`.`Hospital` (`codHospital`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Address_City1`
     FOREIGN KEY (`codCity` , `codCountry` , `codState`)
-    REFERENCES `mydb`.`City` (`codCity` , `codCountry` , `codState`)
+    REFERENCES `wazpital`.`City` (`codCity` , `codCountry` , `codState`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`HealthCare`
+-- Table `wazpital`.`HealthCare`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`HealthCare` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`HealthCare` (
   `codHealthCare` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`codHealthCare`))
@@ -112,9 +112,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Hospital_has_HealthCare`
+-- Table `wazpital`.`Hospital_has_HealthCare`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Hospital_has_HealthCare` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Hospital_has_HealthCare` (
   `codHospital` INT NOT NULL,
   `codHealthCare` INT NOT NULL,
   PRIMARY KEY (`codHospital`, `codHealthCare`),
@@ -122,21 +122,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Hospital_has_HealthCare` (
   INDEX `fk_Hospital_has_HealthCare_Hospital1_idx` (`codHospital` ASC),
   CONSTRAINT `fk_Hospital_has_HealthCare_Hospital1`
     FOREIGN KEY (`codHospital`)
-    REFERENCES `mydb`.`Hospital` (`codHospital`)
+    REFERENCES `wazpital`.`Hospital` (`codHospital`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Hospital_has_HealthCare_HealthCare1`
     FOREIGN KEY (`codHealthCare`)
-    REFERENCES `mydb`.`HealthCare` (`codHealthCare`)
+    REFERENCES `wazpital`.`HealthCare` (`codHealthCare`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Contact`
+-- Table `wazpital`.`Contact`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Contact` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Contact` (
   `codContact` INT NOT NULL,
   `codHospital` INT NOT NULL,
   `type` VARCHAR(45) NOT NULL,
@@ -145,16 +145,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contact` (
   INDEX `fk_Contact_Hospital1_idx` (`codHospital` ASC),
   CONSTRAINT `fk_Contact_Hospital1`
     FOREIGN KEY (`codHospital`)
-    REFERENCES `mydb`.`Hospital` (`codHospital`)
+    REFERENCES `wazpital`.`Hospital` (`codHospital`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Specialization`
+-- Table `wazpital`.`Specialization`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Specialization` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Specialization` (
   `codSpecialization` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`codSpecialization`))
@@ -162,9 +162,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Hospital_has_Specialization`
+-- Table `wazpital`.`Hospital_has_Specialization`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Hospital_has_Specialization` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Hospital_has_Specialization` (
   `codHospital` INT NOT NULL,
   `codSpecialization` INT NOT NULL,
   PRIMARY KEY (`codHospital`, `codSpecialization`),
@@ -172,21 +172,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Hospital_has_Specialization` (
   INDEX `fk_Hospital_has_Specialization_Hospital1_idx` (`codHospital` ASC),
   CONSTRAINT `fk_Hospital_has_Specialization_Hospital1`
     FOREIGN KEY (`codHospital`)
-    REFERENCES `mydb`.`Hospital` (`codHospital`)
+    REFERENCES `wazpital`.`Hospital` (`codHospital`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Hospital_has_Specialization_Specialization1`
     FOREIGN KEY (`codSpecialization`)
-    REFERENCES `mydb`.`Specialization` (`codSpecialization`)
+    REFERENCES `wazpital`.`Specialization` (`codSpecialization`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`User`
+-- Table `wazpital`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`User` (
   `codUser` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `birthDate` DATE NOT NULL,
@@ -197,9 +197,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Rate`
+-- Table `wazpital`.`Rate`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Rate` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`Rate` (
   `timeRate` DATETIME NOT NULL,
   `codHospital` INT NOT NULL,
   `codUser` INT NOT NULL,
@@ -212,21 +212,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Rate` (
   INDEX `fk_Rate_User1_idx` (`codUser` ASC),
   CONSTRAINT `fk_Rate_Hospital1`
     FOREIGN KEY (`codHospital`)
-    REFERENCES `mydb`.`Hospital` (`codHospital`)
+    REFERENCES `wazpital`.`Hospital` (`codHospital`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Rate_User1`
     FOREIGN KEY (`codUser`)
-    REFERENCES `mydb`.`User` (`codUser`)
+    REFERENCES `wazpital`.`User` (`codUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`HealthDocument`
+-- Table `wazpital`.`HealthDocument`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`HealthDocument` (
+CREATE TABLE IF NOT EXISTS `wazpital`.`HealthDocument` (
   `codHealthDocument` INT NOT NULL,
   `codUser` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`HealthDocument` (
   INDEX `fk_HealthDocument_User1_idx` (`codUser` ASC),
   CONSTRAINT `fk_HealthDocument_User1`
     FOREIGN KEY (`codUser`)
-    REFERENCES `mydb`.`User` (`codUser`)
+    REFERENCES `wazpital`.`User` (`codUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
