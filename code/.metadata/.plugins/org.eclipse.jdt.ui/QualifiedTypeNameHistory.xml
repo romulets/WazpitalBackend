@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="javax.sql.DataSource"/>
+<fullyQualifiedTypeName name="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.Address"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.ContactType"/>
+<fullyQualifiedTypeName name="br.com.wazpital.dao.ContactDao"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.Contact"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.HealthCare"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.Hospital"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.Rate"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.Specialization"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="br.com.wazpital.domain.User"/>
+</qualifiedTypeNameHistroy>

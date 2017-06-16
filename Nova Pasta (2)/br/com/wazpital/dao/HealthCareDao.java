@@ -1,0 +1,33 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.HealthCare;
+import java.util.List;
+import br.com.wazpital.domain.Hospital;
+
+public class HealthCareDao extends AbstractDao {
+
+	public void save(HealthCare healthcare) {
+
+	}
+
+	public void update(HealthCare healthcare) {
+
+	}
+
+	public List findAll() {
+		return null;
+	}
+
+	public HealthCare findBy(int id) {
+		return null;
+	}
+
+	public List findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(HealthCare healthcare) {
+
+	}
+
+}

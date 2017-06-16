@@ -1,0 +1,161 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Specialization;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Address;
+import br.com.wazpital.domain.Hospital;
+
+public class SpecializationDao extends AbstractDao {
+
+	public void save(Specialization spec) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO Specialization (name) VALUES (?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, spec.getName());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Specialization spec) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "UPDATE Specialization SET name = ? WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, spec.getName());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Specialization> findAll() {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Specialization> specializations;
+		String sql;
+		
+		specializations = new ArrayList<Specialization>();
+		
+		try {
+			sql = "SELECT * FROM Address";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				specializations.add(new Specialization(rs.getString(1)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return specializations;
+	}
+
+	public Specialization findBy(int id) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		Specialization address;
+		String sql;
+		
+		address = null;
+		
+		try {
+			sql = "SELECT * FROM Specialization WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				address = new Specialization(rs.getString(1));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return address;
+	}
+
+	public List<Specialization> findBy(Hospital hospital) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Specialization> specializations;
+		String sql;
+		
+		specializations = new ArrayList<Specialization>();
+		
+		try {
+			sql = "SELECT * FROM Specialization WHERE idHospital = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				specializations.add(new Specialization(rs.getString(1)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return specializations;
+	}
+
+	public void delete(Specialization spec) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "DELTE FROM Specialization WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

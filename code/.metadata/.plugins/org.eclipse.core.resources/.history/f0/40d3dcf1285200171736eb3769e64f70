@@ -1,0 +1,45 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Specialization;
+import java.util.List;
+import br.com.wazpital.domain.Hospital;
+
+public class SpecializationDao extends AbstractDao {
+
+	public void save(Specialization spec) {
+
+	}
+
+	public void update(Specialization spec) {
+
+	}
+
+	public List<Specialization> findAll() {
+		return null;
+	}
+
+	public Specialization findBy(int id) {
+		return null;
+	}
+
+	public List<Specialization> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(Specialization spec) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void closeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

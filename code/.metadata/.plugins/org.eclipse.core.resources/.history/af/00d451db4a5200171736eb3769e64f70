@@ -1,0 +1,221 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Rate;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.User;
+import br.com.wazpital.domain.Address;
+import br.com.wazpital.domain.Hospital;
+
+public class RateDao extends AbstractDao {
+
+	public void save(Rate rate) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO Rate (overflowingLevel, attendanceSpeed, attendanceRate, "
+					+ "comment, date) VALUES (?, ?, ?, ?, ?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, rate.getOverflowingLevel());
+			stmt.setString(2, rate.getAttendanceSpeed());
+			stmt.setInt(3, rate.getAttendanceRate());
+			stmt.setString(4, rate.getComment());
+			stmt.setDate(5, new Date(new java.util.Date().getTime()));
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Rate rate) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "UPDATE Rate SET number = ?, street = ?, zipCode = ?, neighborhood = ? WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, addr.getNumber());
+			stmt.setString(2, addr.getStreet());
+			stmt.setInt(3, addr.getZipCode());
+			stmt.setString(4, addr.getNeighborhood());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Rate> findAll() {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Rate> addresses;
+		String sql;
+		
+		addresses = new ArrayList<Rate>();
+		
+		try {
+			sql = "SELECT * FROM Rate";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				addresses.add(new Address(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return addresses;
+	}
+
+	public Rate findBy(int id) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		Rate address;
+		String sql;
+		
+		address = null;
+		
+		try {
+			sql = "SELECT * FROM Rate WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				address = new Address(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return address;
+	}
+	}
+
+	public List<Rate> findBy(User user) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Rate> addresses;
+		String sql;
+		
+		addresses = new ArrayList<Rate>();
+		
+		try {
+			sql = "SELECT * FROM Rate WHERE idHospital = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				addresses.add(new Address(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return addresses;
+	}
+
+	public List<Rate> findBy(Hospital hospital) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Rate> addresses;
+		String sql;
+		
+		addresses = new ArrayList<Rate>();
+		
+		try {
+			sql = "SELECT * FROM Rate WHERE idHospital = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				addresses.add(new Address(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return addresses;
+	}
+
+	public Rate findRececentAverageRate(Hospital hospita) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Rate> addresses;
+		String sql;
+		
+		addresses = new ArrayList<Rate>();
+		
+		try {
+			sql = "SELECT * FROM Rate WHERE idHospital = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				addresses.add(new Address(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return addresses;
+	}
+
+	public void delete(Rate rate) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "DELTE FROM Address WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,160 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.HealthCare;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class HealthCareDao extends AbstractDao {
+
+	public void save(HealthCare healthcare) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO HealthCare (name) VALUES (?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, healthcare.getName());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(HealthCare healthcare) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "UPDATE HealthCare SET name = ? WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, healthcare.getName());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<HealthCare> findAll() {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<HealthCare> healthCares;
+		String sql;
+		
+		healthCares = new ArrayList<HealthCare>();
+		
+		try {
+			sql = "SELECT * FROM HealthCare";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				healthCares.add(new HealthCare(rs.getString(1)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return healthCares;
+	}
+
+	public HealthCare findBy(int id) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		HealthCare healthCare;
+		String sql;
+		
+		healthCare = null;
+		
+		try {
+			sql = "SELECT * FROM HealthCare WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				healthCare = new HealthCare(rs.getString(1));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return healthCare;
+	}
+
+	public List<HealthCare> findBy(Hospital hospital) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<HealthCare> healthCares;
+		String sql;
+		
+		healthCares = new ArrayList<HealthCare>();
+		
+		try {
+			sql = "SELECT * FROM HealthCare WHERE idHospital = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				healthCares.add(new HealthCare(rs.getString(1)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return healthCares;
+	}
+
+	public void delete(HealthCare healthcare) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "DELTE FROM HealthCare WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

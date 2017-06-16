@@ -1,0 +1,163 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Address;
+import br.com.wazpital.domain.Contact;
+import br.com.wazpital.domain.ContactType;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class ContactDao extends AbstractDao {
+
+	public void save(Contact contact) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO Contact (content) VALUES (?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, contact.getContent());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Contact contact) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "UPDATE Contact SET content = ? WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, contact.getContent());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Contact> findAll() {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Contact> contacts;
+		String sql;
+		
+		contacts = new ArrayList<Contact>();
+		
+		try {
+			sql = "SELECT * FROM Contact";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				contacts.add(new Contact(rs.getString(1)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return contacts;
+	}
+
+	public Contact findBy(int id) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		Contact contact;
+		String sql;
+		
+		contact = null;
+		
+		try {
+			sql = "SELECT * FROM Contact WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				contact = new Contact(rs.getString(1));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return contact;
+	}
+
+	public List<Contact> findBy(Hospital hospital) {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Contact> contacts;
+		String sql;
+		
+		contacts = new ArrayList<Contact>();
+		
+		try {
+			sql = "SELECT * FROM Contact WHERE idHospital = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				contacts.add(new Contact(rs.getString(1)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return contacts;
+	}
+
+	public void delete(Contact contact) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "DELTE FROM Address WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

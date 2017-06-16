@@ -1,0 +1,158 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Rate;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.User;
+import br.com.wazpital.domain.Hospital;
+
+public class RateDao extends AbstractDao {
+
+	public void save(Rate rate) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO Address (number, street, zipCode, neighborhood) VALUES (?, ?, ?, ?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, addr.getNumber());
+			stmt.setString(2, addr.getStreet());
+			stmt.setInt(3, addr.getZipCode());
+			stmt.setString(4, addr.getNeighborhood());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Rate rate) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Rate> findAll() {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Rate findBy(int id) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Rate> findBy(User user) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Rate> findBy(Hospital hospital) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Rate findRececentAverageRate(Hospital hospita) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void delete(Rate rate) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

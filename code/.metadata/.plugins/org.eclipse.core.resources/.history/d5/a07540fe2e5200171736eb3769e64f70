@@ -1,0 +1,63 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Specialization;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class SpecializationDao extends AbstractDao {
+
+	public void save(Specialization spec) {
+
+	}
+
+	public void update(Specialization spec) {
+
+	}
+
+	public List<Specialization> findAll() {
+		return null;
+	}
+
+	public Specialization findBy(int id) {
+		return null;
+	}
+
+	public List<Specialization> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(Specialization spec) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,145 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Address;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class AddressDao extends AbstractDao {
+
+	public void save(Address addr) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "INSERT INTO Address (number, street, zipCode, neighborhood) VALUES (?, ?, ?, ?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, addr.getNumber());
+			stmt.setString(2, addr.getStreet());
+			stmt.setInt(3, addr.getZipCode());
+			stmt.setString(4, addr.getNeighborhood());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Address addr) {
+		PreparedStatement stmt;
+		String sql;
+		
+		try {
+			sql = "UPDATE Address SET number = ?, street = ?, zipCode = ?, neighborhood = ? WHERE id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, addr.getNumber());
+			stmt.setString(2, addr.getStreet());
+			stmt.setInt(3, addr.getZipCode());
+			stmt.setString(4, addr.getNeighborhood());
+
+			stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Address> findAll() {
+		PreparedStatement stmt;
+		ResultSet rs;
+		List<Address> addresses;
+		String sql;
+		
+		addresses = new ArrayList<Address>();
+		
+		try {
+			sql = "SELECT * FROM Address";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while (rs.next())
+				addresses.add(new Address(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+			
+			return addresses;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Address findBy(int id) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Address> findBy(Hospital hospital) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void delete(Address addr) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

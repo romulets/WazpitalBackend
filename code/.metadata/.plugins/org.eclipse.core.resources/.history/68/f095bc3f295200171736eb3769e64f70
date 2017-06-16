@@ -1,0 +1,68 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Rate;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.User;
+import br.com.wazpital.domain.Hospital;
+
+public class RateDao extends AbstractDao {
+
+	public void save(Rate rate) {
+
+	}
+
+	public void update(Rate rate) {
+
+	}
+
+	public List<Rate> findAll() {
+		return null;
+	}
+
+	public Rate findBy(int id) {
+		return null;
+	}
+
+	public List<Rate> findBy(User user) {
+		return null;
+	}
+
+	public List<Rate> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public Rate findRececentAverageRate(Hospital hospita) {
+		return null;
+	}
+
+	public void delete(Rate rate) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

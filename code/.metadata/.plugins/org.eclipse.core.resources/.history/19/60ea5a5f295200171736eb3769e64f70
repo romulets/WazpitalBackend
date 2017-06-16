@@ -1,0 +1,63 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Address;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class AddressDao extends AbstractDao {
+
+	public void save(Address addr) {
+
+	}
+
+	public void update(Address addr) {
+
+	}
+
+	public List<Address> findAll() {
+		return null;
+	}
+
+	public Address findBy(int id) {
+		return null;
+	}
+
+	public List<Address> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(Address addr) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

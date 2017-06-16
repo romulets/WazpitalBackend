@@ -1,0 +1,52 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Address;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class AddressDao extends AbstractDao {
+
+	public void save(Address addr) {
+
+	}
+
+	public void update(Address addr) {
+
+	}
+
+	public List<Address> findAll() {
+		return null;
+	}
+
+	public Address findBy(int id) {
+		return null;
+	}
+
+	public List<Address> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(Address addr) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("scott");
+		dataSource.setPassword("tiger");
+		dataSource.setServerName("myDBHost.example.org");
+		this.conn = dataSource.getConnection();
+		
+	}
+
+	@Override
+	protected void closeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

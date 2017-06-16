@@ -1,0 +1,166 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Hospital;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Coordinate;
+import br.com.wazpital.domain.HealthCare;
+import br.com.wazpital.domain.Specialization;
+
+public class HospitalDao extends AbstractDao {
+
+	public void save(Hospital hospital) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Hospital hospital) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Hospital> findAll() {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Hospital findBy(int id) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Hospital> findBy(Coordinate c) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Hospital> findBy(Coordinate c, HealthCare h) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Hospital> findBy(Coordinate c, Specialization s) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<Hospital> findBy(Coordinate c, Specialization s, HealthCare h) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void delete(Hospital hospital) {
+		Statement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM USERS");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

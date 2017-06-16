@@ -1,0 +1,13 @@
+package br.com.wazpital.dao;
+
+import java.sql.Connection;
+
+public abstract class AbstractDao {
+
+	protected Connection conn;
+
+	abstract protected void openConnection();
+
+	abstract protected void closeConnection();
+
+}

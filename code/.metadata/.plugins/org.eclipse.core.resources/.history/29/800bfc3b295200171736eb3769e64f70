@@ -1,0 +1,59 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.HealthCare;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class HealthCareDao extends AbstractDao {
+
+	public void save(HealthCare healthcare) {
+
+	}
+
+	public void update(HealthCare healthcare) {
+
+	}
+
+	public List<HealthCare> findAll() {
+		return null;
+	}
+
+	public HealthCare findBy(int id) {
+		return null;
+	}
+
+	public List<HealthCare> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(HealthCare healthcare) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

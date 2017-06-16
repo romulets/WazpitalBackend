@@ -1,0 +1,57 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.User;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+public class UserDao extends AbstractDao {
+
+	public void save(User user) {
+
+	}
+
+	public void update(User user) {
+
+	}
+
+	public List<User> findAll() {
+		return null;
+	}
+
+	public User findBy(int id) {
+		return null;
+	}
+
+	public void delete(User user) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

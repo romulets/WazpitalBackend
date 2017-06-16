@@ -1,0 +1,63 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Contact;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import br.com.wazpital.domain.Hospital;
+
+public class ContactDao extends AbstractDao {
+
+	public void save(Contact contact) {
+
+	}
+
+	public void update(Contact contact) {
+
+	}
+
+	public List<Contact> findAll() {
+		return null;
+	}
+
+	public Contact findBy(int id) {
+		return null;
+	}
+
+	public List<Contact> findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(Contact contact) {
+
+	}
+
+	@Override
+	protected void openConnection() {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser("wazuser");
+		dataSource.setPassword("wazpass");
+		dataSource.setServerName("wazDB");
+		
+		try {
+			this.conn = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void closeConnection() {
+		try {
+			this.conn.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,31 @@
+package br.com.wazpital.domain;
+
+public class Contact {
+
+	private ContactType type;
+
+	private String content;
+
+	public Contact(ContactType type, String content) {
+		super();
+		this.type = type;
+		this.content = content;
+	}
+
+	public ContactType getType() {
+		return type;
+	}
+
+	public void setType(ContactType type) {
+		this.type = type;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+}

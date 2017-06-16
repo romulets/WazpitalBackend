@@ -1,0 +1,33 @@
+package br.com.wazpital.dao;
+
+import br.com.wazpital.domain.Contact;
+import java.util.List;
+import br.com.wazpital.domain.Hospital;
+
+public class ContactDao extends AbstractDao {
+
+	public void save(Contact contact) {
+
+	}
+
+	public void update(Contact contact) {
+
+	}
+
+	public List findAll() {
+		return null;
+	}
+
+	public Contact findBy(int id) {
+		return null;
+	}
+
+	public List findBy(Hospital hospital) {
+		return null;
+	}
+
+	public void delete(Contact contact) {
+
+	}
+
+}
